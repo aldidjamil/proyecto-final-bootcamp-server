@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const Product = require('./../models/Product.model')
-const fileUploader = require('./../config/cloudinary.config')
+const { verifyToken } = require("../middlewares/verifyToken")
+
 
 router.get("/getAllProducts", (req, res) => {
 
@@ -23,26 +24,26 @@ router.get("/:Product_id", (req, res, next) => {
 })
 
 
-router.post("/addProduct", fileUploader.single('imageUrl'), (req, res, next) => {
+router.post("/addProduct", verifyToken, (req, res, next) => {
 
-  let imageUrl = req.file?.path
-  const { title, description, format, owner, stock } = req.body
+
+  const { title, description, format, imageUrl, stock, price } = req.body
+  const { _id: owner } = req.payload
 
   Product
-    .create({ title, description, format, imageUrl, owner, stock })
+    .create({ title, description, format, imageUrl, owner, stock, price })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-router.put("/edit/:Product_id", fileUploader.single('imageUrl'), (req, res, next) => {
+router.put("/edit/:Product_id", (req, res, next) => {
 
   let { Product_id } = req.params
-  let imageUrl = req.file?.path
-  const { title, description, format, stock, owner } = req.body
+  const { title, description, format, imageUrl, stock, owner, price } = req.body
 
 
   Product
-    .findByIdAndUpdate(Product_id, { title, description, format, imageUrl, stock, owner })
+    .findByIdAndUpdate(Product_id, { title, description, format, imageUrl, stock, owner, price })
     .then(response => res.json(response))
     .catch(err => next(err))
 })

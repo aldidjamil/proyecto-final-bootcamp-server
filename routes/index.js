@@ -9,4 +9,7 @@ router.use("/auth", authRoutes)
 const recipesRoutes = require("./recipes.routes")
 router.use("/recipes", recipesRoutes)
 
+const uploadRoutes = require("./upload.routes")
+router.use("/upload", uploadRoutes)
+
 module.exports = router
