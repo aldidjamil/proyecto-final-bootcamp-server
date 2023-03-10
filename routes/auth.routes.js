@@ -88,24 +88,14 @@ router.get('/verify', verifyToken, (req, res, next) => {
   res.json(req.payload)
 })
 
-router.delete('/delete/:_id', (req, res, next) => {
-  const { _id } = req.params
 
-  User
-
-    .findByIdAndDelete({ _id })
-    .then(response => res.json(response))
-    .catch(err => next(err))
-
-})
-
-router.put('/edit/:_id', (req, res, next) => {
-  let { _id } = req.params
+router.put('/edit/:user_id', (req, res, next) => {
+  let { user_id } = req.params
   const { email, password, username } = req.body
 
   User
 
-    .findByIdAndUpdate(_id, { email, password, username })
+    .findByIdAndUpdate(user_id, { email, password, username })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
@@ -120,4 +110,14 @@ router.get("/:user_id", (req, res, next) => {
     .catch(err => next(err))
 })
 
+router.delete('/delete/:_id', (req, res, next) => {
+  const { _id } = req.params
+
+  User
+
+    .findByIdAndDelete({ _id })
+    .then(response => res.json(response))
+    .catch(err => next(err))
+
+})
 module.exports = router
