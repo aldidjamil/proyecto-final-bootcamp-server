@@ -23,12 +23,11 @@ router.get("/Recipe/:Recipe_id", (req, res, next) => {
 })
 
 
-router.post("/addRecipe", fileUploader.single('imageUrl'), (req, res, next) => {
-  let imageUrl = req.file?.path
-  const { title, description, ingredients } = req.body
+router.post("/addRecipe", (req, res, next) => {
+  const { title, steps, ingredients, imageUrl } = req.body
 
   Recipe
-    .create({ title, description, imageUrl, ingredients })
+    .create({ title, steps, imageUrl, ingredients })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
@@ -43,15 +42,14 @@ router.delete('/delete/:_id', (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.put('/edit/:_id', fileUploader.single('imageUrl'), (req, res, next) => {
+router.put('/edit/:_id', (req, res, next) => {
 
   let { _id } = req.params
-  let imageUrl = req.file?.path
-  const { title, description, ingredients } = req.body
+  const { title, steps, imageUrl, ingredients, owner } = req.body
 
 
   Recipe
-    .findByIdAndUpdate(_id, { title, description, ingredients, imageUrl })
+    .findByIdAndUpdate(_id, { title, steps, ingredients, imageUrl, owner })
     .then(response => res.json(response))
     .catch(err => next(err))
 })

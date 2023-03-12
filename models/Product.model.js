@@ -14,8 +14,13 @@ const productSchema = new Schema(
         },
         format: {
             type: Number,
-            required: [true, 'La longitud es obligatoria.'],
+            required: [true, 'El formato es obligatorio.'],
             min: [100, 'Sólo a partir de 100 gramos.']
+        },
+        format: {
+            type: String,
+            enum: ['125', '200'],
+            default: '125'
         },
         stock: {
             type: Number,
