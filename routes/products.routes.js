@@ -12,6 +12,15 @@ router.get("/getAllProducts", (req, res) => {
     .catch(err => next(err))
 })
 
+router.get("/owner", verifyToken, (req, res, next) => {
+
+  const { _id: owner } = req.payload
+
+  Product
+    .find({ owner })
+    .then(response => res.json(response))
+    .catch(err => next(err))
+})
 
 router.get("/:Product_id", (req, res, next) => {
 
@@ -22,6 +31,7 @@ router.get("/:Product_id", (req, res, next) => {
     .then(response => res.json(response))
     .catch(err => next(err))
 })
+
 
 
 router.post("/addProduct", verifyToken, (req, res, next) => {
@@ -69,7 +79,5 @@ router.delete('/delete/:Product_id', (req, res, next) => {
     .then(response => res.json(response))
     .catch(err => next(err))
 })
-
-
 
 module.exports = router
