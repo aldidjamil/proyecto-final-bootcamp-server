@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const Recipe = require('./../models/Recipe.model')
-const fileUploader = require('./../config/cloudinary.config')
+const { verifyToken } = require("../middlewares/verifyToken")
+
 
 router.get("/getAllRecipes", (req, res) => {
 
@@ -12,44 +13,46 @@ router.get("/getAllRecipes", (req, res) => {
 })
 
 
-router.get("/Recipe/:Recipe_id", (req, res, next) => {
+router.get("/Recipe/:recipe_id", (req, res, next) => {
 
-  const { Recipe_id } = req.params
+  const { recipe_id } = req.params
 
   Recipe
-    .findById(Recipe_id)
+    .findById(recipe_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
 
-router.post("/addRecipe", (req, res, next) => {
-  const { title, steps, ingredients, imageUrl } = req.body
+router.post("/addRecipe", verifyToken, (req, res, next) => {
+
+  const { title, steps, imageUrl, ingredients } = req.body
+  const { _id: owner } = req.payload
 
   Recipe
-    .create({ title, steps, imageUrl, ingredients })
+    .create({ title, steps, imageUrl, owner, ingredients })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-router.delete('/delete/:_id', (req, res, next) => {
+router.delete('/delete/:recipe_id', (req, res, next) => {
 
-  const { _id } = req.params
+  const { recipe_id } = req.params
 
   Recipe
-    .findByIdAndDelete(_id)
+    .findByIdAndDelete(recipe_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-router.put('/edit/:_id', (req, res, next) => {
+router.put('/edit/:recipe_id', (req, res, next) => {
 
-  let { _id } = req.params
-  const { title, steps, imageUrl, ingredients, owner } = req.body
+  let { recipe_id } = req.params
+  const { title, steps, imageUrl, owner, ingredients } = req.body
 
 
   Recipe
-    .findByIdAndUpdate(_id, { title, steps, ingredients, imageUrl, owner })
+    .findByIdAndUpdate(recipe_id, { title, steps, ingredients, owner, imageUrl })
     .then(response => res.json(response))
     .catch(err => next(err))
 })

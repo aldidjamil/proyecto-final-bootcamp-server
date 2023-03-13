@@ -12,9 +12,9 @@ const productSchema = new Schema(
             minlength: [5, 'La descripción debe tener min. 5 caracteres.'],
             required: [true, 'La descripción es obligatoria.'],
         },
-        format: { //Aqui un enum con 125 y 200 gr
+        format: {
             type: Number,
-            min: [60, 'Sólo a partir de 100 gramos.'],
+            min: [60, 'Sólo a partir de 60 gramos.'],
             required: [true, 'El formato es obligatoria.'],
         },
         format: {
