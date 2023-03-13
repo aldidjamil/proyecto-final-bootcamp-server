@@ -1,7 +1,6 @@
 const router = require("express").Router()
 const Recipe = require('./../models/Recipe.model')
-
-
+const fileUploader = require('./../config/cloudinary.config')
 
 router.get("/getAllRecipes", (req, res) => {
 
@@ -24,9 +23,9 @@ router.get("/Recipe/:Recipe_id", (req, res, next) => {
 })
 
 
-router.post("/addRecipe", (req, res, next) => {
-
-  const { title, description, imageUrl, ingredients } = req.body
+router.post("/addRecipe", fileUploader.single('imageUrl'), (req, res, next) => {
+  let imageUrl = req.file?.path
+  const { title, description, ingredients } = req.body
 
   Recipe
     .create({ title, description, imageUrl, ingredients })
@@ -44,10 +43,11 @@ router.delete('/delete/:_id', (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.put('/edit/:_id', (req, res, next) => {
+router.put('/edit/:_id', fileUploader.single('imageUrl'), (req, res, next) => {
 
   let { _id } = req.params
-  const { title, description, imageUrl, ingredients } = req.body
+  let imageUrl = req.file?.path
+  const { title, description, ingredients } = req.body
 
 
   Recipe
