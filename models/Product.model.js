@@ -17,6 +17,11 @@ const productSchema = new Schema(
             min: [60, 'Sólo a partir de 100 gramos.'],
             required: [true, 'El formato es obligatoria.'],
         },
+        format: {
+            type: String,
+            enum: ['125', '200'],
+            default: '125'
+        },
         stock: {
             type: Number,
             required: [true, 'La cantidad de producto es obligatoria'],
