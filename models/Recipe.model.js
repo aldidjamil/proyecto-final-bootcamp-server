@@ -18,8 +18,8 @@ const recipeSchema = new Schema(
         },
         ingredients: {
             type: [String],
-            required: [true, 'Los ingredientes son necesarios']
-
+            required: [true, 'Los ingredientes son necesarios'],
+            validate: [value => !(value.length === 1 && value[0] === ''), 'Los ingredientes son necesarios']
         },
         owner: {
             type: Schema.Types.ObjectId,

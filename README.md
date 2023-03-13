@@ -5,14 +5,17 @@ SERVER ROUTES
 HTTP METHOD  | Route                              | Description                  | JSON
 -------------| -----------------------------------| ---------------------------- | ----- |
 GET          | `/getAllProducts`                  | All Products list            |
-GET          | `/:id`                             | Get Poduct Details by Id     |
+GET          | `/:id`                             | Get Poduct by Id             |
+GET          | `/owner`                           | Get Poduct by owner          |
 POST         | `/NewProduct`                      | New product                  |
 PUT          | `/edit/:id`                        | Edit Products by Id          |
+PUT          | `/updateStock/:id`                 | Product Stock                |
 DELETE       | `/delete/:id`                      | Delete Products by Id        |
 --- Base URL /recipes ---
 HTTP METHOD  | Route                              | Description                  | JSON
 -------------| -----------------------------------| ---------------------------- | ----- |
 GET          | `/getAllRecipes`                   | All Recipes list             |
+GET          | `/owner`                           | Get Recipes by owner         |
 POST         | `/NewRecipe`                       | New Recipe                   |
 GET          | `/:id`                             | Get Recipe Details by Id     |
 PUT          | `/edit/:id`                        | Edit Products by Id          |

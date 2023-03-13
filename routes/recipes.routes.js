@@ -12,6 +12,16 @@ router.get("/getAllRecipes", (req, res) => {
     .catch(err => next(err))
 })
 
+router.get("/owner", verifyToken, (req, res, next) => {
+
+  const { _id: owner } = req.payload
+
+  Recipe
+    .find({ owner })
+    .then(response => res.json(response))
+    .catch(err => next(err))
+})
+
 
 router.get("/Recipe/:recipe_id", (req, res, next) => {
 
