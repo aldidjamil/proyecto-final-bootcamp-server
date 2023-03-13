@@ -22,12 +22,12 @@ router.get("/owner", verifyToken, (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.get("/:Product_id", (req, res, next) => {
+router.get("/:product_id", (req, res, next) => {
 
-  const { Product_id } = req.params
+  const { product_id } = req.params
 
   Product
-    .findById(Product_id)
+    .findById(product_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
@@ -46,36 +46,36 @@ router.post("/addProduct", verifyToken, (req, res, next) => {
     .catch(err => next(err))
 })
 
-router.put("/edit/:Product_id", (req, res, next) => {
+router.put("/edit/:product_id", (req, res, next) => {
 
-  let { Product_id } = req.params
+  let { product_id } = req.params
   const { title, description, format, imageUrl, stock, owner, price } = req.body
 
 
   Product
-    .findByIdAndUpdate(Product_id, { title, description, format, imageUrl, stock, owner, price })
+    .findByIdAndUpdate(product_id, { title, description, format, imageUrl, stock, owner, price })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-router.put("/updateStock/:Product_id", (req, res, next) => {
+router.put("/updateStock/:product_id", (req, res, next) => {
 
-  let { Product_id } = req.params
+  let { product_id } = req.params
   const { stock } = req.body
 
 
   Product
-    .findByIdAndUpdate(Product_id, { stock })
+    .findByIdAndUpdate(product_id, { stock })
     .then(response => res.json(response))
     .catch(err => next(err))
 })
 
-router.delete('/delete/:Product_id', (req, res, next) => {
+router.delete('/delete/:product_id', (req, res, next) => {
 
-  const { Product_id } = req.params
+  const { product_id } = req.params
 
   Product
-    .findByIdAndDelete(Product_id)
+    .findByIdAndDelete(product_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
