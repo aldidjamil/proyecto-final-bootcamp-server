@@ -13,12 +13,12 @@ router.get("/getAllRecipes", (req, res) => {
 })
 
 
-router.get("/Recipe/:Recipe_id", (req, res, next) => {
+router.get("/Recipe/:recipe_id", (req, res, next) => {
 
-  const { Recipe_id } = req.params
+  const { recipe_id } = req.params
 
   Recipe
-    .findById(Recipe_id)
+    .findById(recipe_id)
     .then(response => res.json(response))
     .catch(err => next(err))
 })
