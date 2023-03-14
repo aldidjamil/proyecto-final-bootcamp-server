@@ -27,13 +27,17 @@ router.get("/getCart/:cart_id", verifyToken, (req, res, next) => {
         .catch(err => next(err))
 })
 
-router.put("/edit/:cart_id", verifyToken, (req, res, next) => {
+router.put("/editQuantity/:cart_id", verifyToken, (req, res, next) => {
     let { cart_id } = req.params
     const { buy } = req.body
 
     Cart
         .findByIdAndUpdate(cart_id, { buy }, { new: true })
-        .then(response => res.json(response))
+        .then(updatedCart => {
+            return updatedCart.updatePrices()
+        })
+        .then(cart => cart.save())
+        .then(response => res.status(200).json(response))
         .catch(err => next(err))
 
 })
