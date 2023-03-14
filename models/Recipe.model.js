@@ -7,11 +7,9 @@ const recipeSchema = new Schema(
             required: [true, 'El nombre es obligatorio.'],
             unique: true
         },
-        steps: [
-            {
-                description: String,
-            }
-        ],
+        steps: [{
+            description: String,
+        }],
         imageUrl: {
             type: String,
             default: 'https://e7.pngegg.com/pngimages/426/730/png-clipart-logo-yellow-font-recipe-logo-art-thumbnail.png',
