@@ -45,6 +45,22 @@ cartSchema.pre('save', async function () {
     cart.totalPrice = totalPrice;
 });
 
+cartSchema.methods.updatePrices = async function () {
+    const cart = this;
+    let totalPrice = 0;
+
+    for (const item of cart.buy) {
+        const product = await Product.findById(item.product);
+        const price = product.price * item.quantity;
+        item.price = price;
+        totalPrice += price;
+    }
+
+    cart.totalPrice = totalPrice;
+
+    return cart
+};
+
 
 const Cart = model("Cart", cartSchema)
 

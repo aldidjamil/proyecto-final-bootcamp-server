@@ -22,18 +22,22 @@ router.get("/getCart/:cart_id", verifyToken, (req, res, next) => {
 
     Cart
         .findById(cart_id)
-        .populate()
+        .populate('buy.product')
         .then(response => res.json(response))
         .catch(err => next(err))
 })
 
-router.put("/edit/:cart_id", verifyToken, (req, res, next) => {
+router.put("/editQuantity/:cart_id", verifyToken, (req, res, next) => {
     let { cart_id } = req.params
-    const { buy, totalPrice, owner } = req.body
+    const { buy } = req.body
 
     Cart
-        .findByIdAndUpdate(cart_id, { buy, totalPrice, owner })
-        .then(response => res.json(response))
+        .findByIdAndUpdate(cart_id, { buy }, { new: true })
+        .then(updatedCart => {
+            return updatedCart.updatePrices()
+        })
+        .then(cart => cart.save())
+        .then(response => res.status(200).json(response))
         .catch(err => next(err))
 
 })
