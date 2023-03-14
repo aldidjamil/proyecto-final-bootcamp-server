@@ -12,4 +12,7 @@ router.use("/recipes", recipesRoutes)
 const uploadRoutes = require("./upload.routes")
 router.use("/upload", uploadRoutes)
 
+const cartRoutes = require("./cart.routes")
+router.use("/cart", cartRoutes)
+
 module.exports = router
