@@ -3,6 +3,7 @@ const Cart = require('./../models/Cart.model')
 const Product = require("../models/Product.model")
 const User = require("../models/User.model")
 const { verifyToken } = require("../middlewares/verifyToken")
+const User = require('./../models/User.model')
 
 router.post("/createCart", verifyToken, (req, res, next) => {
 

@@ -35,7 +35,10 @@ cartSchema.pre('save', async function () {
     const cart = this;
     let totalPrice = 0;
 
+    console.log("???????", cart)
+
     for (const item of cart.buy) {
+
         const product = await Product.findById(item.product);
         const price = product.price * item.quantity;
         item.price = price;
