@@ -52,6 +52,7 @@ cartSchema.methods.updatePrices = async function () {
     for (const item of cart.buy) {
         const product = await Product.findById(item.product);
         const price = product.price * item.quantity;
+        console.log(product.price)
         item.price = price;
         totalPrice += price;
     }

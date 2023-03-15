@@ -17,6 +17,10 @@ const userSchema = new Schema({
     type: String,
     required: [true, 'El nombre de usuario es obligatorio']
   },
+  cart: {
+    type: Schema.Types.ObjectId,
+    ref: 'Cart',
+  },
   role: {
     type: String,
     enum: ['USER', 'ADMIN', 'EDITOR'],
