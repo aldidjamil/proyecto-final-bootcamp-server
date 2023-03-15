@@ -2,6 +2,7 @@ const router = require("express").Router()
 const Cart = require('./../models/Cart.model')
 const Product = require("../models/Product.model")
 const { verifyToken } = require("../middlewares/verifyToken")
+const User = require('./../models/User.model')
 
 router.post("/createCart", verifyToken, (req, res, next) => {
 
@@ -10,7 +11,8 @@ router.post("/createCart", verifyToken, (req, res, next) => {
 
     Cart
         .create({ buy, totalPrice })
-        .then(response => res.json(response))
+        .then(cart => User.findByIdAndUpdate(owner, { cart: cart._id }, { new: true }))
+        .then(user => console.log(user))
         .catch(err => next(err))
 })
 
