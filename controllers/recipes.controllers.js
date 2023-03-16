@@ -9,7 +9,7 @@ const getAllRecipes = (req, res) => {
         .catch(err => next(err))
 }
 
-const getRecipeOwner = (req, res, next) => {
+const getRecipeByOwner = (req, res, next) => {
     const { _id: owner } = req.payload
 
     Recipe
@@ -59,4 +59,4 @@ const editRecipe = (req, res, next) => {
         .catch(err => next(err))
 }
 
-module.exports = { getAllRecipes, getRecipeOwner, getRecipeById, addRecipe, deleteRecipe, editRecipe }
+module.exports = { getAllRecipes, getRecipeByOwner, getRecipeById, addRecipe, deleteRecipe, editRecipe }
