@@ -1,7 +1,7 @@
 const router = require("express").Router()
 const User = require("../models/User.model")
 const { verifyToken } = require("../middlewares/verifyToken")
-const { getAllUsers, signup, login, verify, edit, getUserById, deleteUser } = require("../controllers/auth.controller")
+const { getAllUsers, signup, login, verify, edit, getUserById, deleteUser, updateToken } = require("../controllers/auth.controller")
 
 
 router.get('/getAllUsers', getAllUsers)
@@ -11,5 +11,6 @@ router.get('/verify', verifyToken, verify)
 router.put('/edit/:user_id', edit)
 router.get("/:user_id", getUserById)
 router.delete('/delete/:_id', deleteUser)
+router.get('/updateToken', verifyToken, updateToken)
 
 module.exports = router

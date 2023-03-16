@@ -86,5 +86,15 @@ const deleteUser = (req, res, next) => {
         .catch(err => next(err))
 }
 
+const updateToken = (req, res, next) => {
+    const user_id = req.payload._id
+    User
+        .findById(user_id)
+        .then(user => {
+            const token = user.signToken()
+            res.json(token)
+                .catch(err => next(err))
+        })
+}
 
-module.exports = { getAllUsers, signup, login, verify, edit, getUserById, deleteUser }
+module.exports = { getAllUsers, signup, login, verify, edit, getUserById, deleteUser, updateToken }
